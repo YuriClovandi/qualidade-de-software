@@ -1,0 +1,75 @@
+#include <stdio.h>
+#include <stdlib.h>
+#include <locale.h>
+
+// Função para exibir o banner
+void exibir_banner() {
+    printf(" ___ __  __  ____ \n");
+    printf("|_ _|  \\/  |/ ___|\n");
+    printf(" | || |\\/| | |    \n");
+    printf(" | || |  | | |___ \n");
+    printf("|___|_|  |_|\\____|\n");
+    printf("\n");
+}
+
+// Função para calcular o IMC
+float calcular_imc(float peso, float altura) {
+    return peso / (altura * altura);
+}
+
+// Função para classificar o IMC
+const char* classificar_imc(float imc) {
+    if (imc < 17) {
+        return "Muito abaixo do peso";
+    } else if (imc < 18.5) {
+        return "Abaixo do peso";
+    } else if (imc < 25) {
+        return "Peso normal";
+    } else if (imc < 30) {
+        return "Acima do peso";
+    } else if (imc < 35) {
+        return "Obesidade I";
+    } else if (imc < 40) {
+        return "Obesidade II (severa)";
+    } else {
+        return "Obesidade III (mórbida)";
+    }
+}
+
+// Função para validar as entradas do usuário
+int validar_entrada(float peso, float altura) {
+    if (peso <= 0) {
+        printf("Peso inválido. Deve ser maior que 0.\n");
+        return 0;
+    }
+    if (altura <= 0) {
+        printf("Altura inválida. Deve ser maior que 0.\n");
+        return 0;
+    }
+    return 1;
+}
+int main() {
+    setlocale(LC_ALL, "Portuguese");
+    // Exibir o banner do programa
+    exibir_banner();
+    float peso, altura, imc;
+    // Entrada de dados
+    printf("Digite o seu peso em Kg: ");
+    scanf("%f", &peso);
+    printf("Digite a sua altura em metros: ");
+    scanf("%f", &altura);
+    // Validação das entradas
+    if (!validar_entrada(peso, altura)) {
+        return 1;  // Encerra o programa se os valores forem inválidos
+    }
+    // Cálculo do IMC
+    imc = calcular_imc(peso, altura);
+    printf("IMC: %.2f\n", imc);
+    // Exibição da classificação
+    printf("%s\n", classificar_imc(imc))
+   // Espera para fechar o programa
+    printf("Pressione Enter para sair...");
+    getchar();  // Consome o '\n' restante do buffer
+    getchar();  // Aguarda o Enter do usuário
+    return 0;
+}
